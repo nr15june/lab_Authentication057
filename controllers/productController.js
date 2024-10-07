@@ -24,7 +24,7 @@ exports.postProduct = async (req, res) => {
     const { product_name, product_type, price, unit } = req.body;
     const product = new Product({ product_name, product_type, price, unit });
     try {
-        const { product_name, product_type, price, unit } = req.body;
+        const savedProduct = await product.save();
         res.status(201).json(savedProduct);
     } catch (err) {
         res.status(500).json({ message: err.message });

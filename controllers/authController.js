@@ -45,10 +45,7 @@ exports.login = async (req, res) => {
         if (!tmpuser) return res.status(400).send("User not found");
         const isMatch = await bcrypt.compare(password, tmpuser.password);
         if (!isMatch) return res.status(400).send("Invalid credentials");
-
-        const user = await User.findOne({
-            username
-        }).select("-password");
+        const user = await User.findOne({username}).select("-password");
 
         const accessToken = jwt.sign({
                 userId: user._id
